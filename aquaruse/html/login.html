@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LoginLaundry</title>
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="../css/login.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
@@ -43,7 +43,7 @@
     <div class="login-right">
       <div class="logo-container">
         <div class="logo-graphic">
-          <img src="image/logo.png" alt="Albaanii Logo" class="logo-image">
+          <img src="../assets/logo.png" alt="Aquaruse Logo" class="logo-image">
         </div>
       </div>
     </div>
@@ -71,19 +71,35 @@
       document.getElementById('loginForm').addEventListener('submit', function (event) {
         event.preventDefault();
         const email = document.getElementById('email').value.trim().toLowerCase();
+        const password = document.getElementById('password').value;
         const errorDiv = document.getElementById('login-error');
 
-        if (email === 'staff@aquaruse' || email === 'admin@aquaruse') {
+        // Admin login (no password required for demo)
+        if (email === 'admin@aquaruse') {
           localStorage.setItem('userEmail', email);
+          localStorage.setItem('userRole', 'admin');
           window.location.href = 'spa.html';
-        } else {
-          errorDiv.textContent = 'Invalid email. Please try again.';
-          errorDiv.style.display = 'block';
+          return;
         }
+
+        // Staff login
+        const staffAccounts = JSON.parse(localStorage.getItem('staffAccounts') || '[]');
+        const staff = staffAccounts.find(acc => acc.email === email);
+
+        if (staff && staff.password === password) {
+          localStorage.setItem('userEmail', email);
+          localStorage.setItem('userRole', 'staff');
+          window.location.href = 'spa.html';
+          return;
+        }
+
+        // Login failed
+        errorDiv.textContent = 'Invalid email or password. Please try again.';
+        errorDiv.style.display = 'block';
       });
     });
   </script>
-  <script src="js/login.js"></script>
+  <script src="../js/login.js"></script>
 </body>
 
 </html>

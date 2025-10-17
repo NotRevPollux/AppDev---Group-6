@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laundry App</title>
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="../css/style.css?v=11">
   <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -13,7 +13,7 @@
   <div class="dashboard-root">
     <aside class="sidebar">
       <div class="sidebar-logo">
-        <img src="assets/logo.png" alt="Logo" class="logo-img">
+        <img src="../assets/logo.png" alt="Logo" class="logo-img">
       </div>
       <nav class="sidebar-nav">
         <a href="#" class="sidebar-btn" id="nav-dashboard">
@@ -70,29 +70,17 @@
             </svg>
           </span> Supplies
         </a>
-        <a href="#" class="sidebar-btn" id="nav-accounts" style="display:none;">
-          <span class="sidebar-icon">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21.7721 0.682373H0.582275V2.98485H21.7721V0.682373Z" fill="#F5EFE7" />
-              <path d="M21.7721 12.7656H0.582275V15.0681H21.7721V12.7656Z" fill="#F5EFE7" />
-              <path d="M21.7721 6.72412H6.39478V9.0266H21.7721V6.72412Z" fill="#F5EFE7" />
-              <path d="M21.772 18.8074H10.9155V21.1099H21.772V18.8074Z" fill="#F5EFE7" />
-            </svg>
-          </span> Accounts
-        </a>
-        <a href="#" class="sidebar-btn" id="nav-sales" style="display:none;">
-          <span class="sidebar-icon">
-            <svg width="36" height="26" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M18 20.3334C22.8247 20.3334 26.75 17.0435 26.75 13.0001C26.75 8.95666 22.8247 5.66675 18 5.66675C13.1753 5.66675 9.25 8.95666 9.25 13.0001C9.25 17.0435 13.1753 20.3334 18 20.3334ZM18 9.33341C20.8455 9.33341 23.25 11.0127 23.25 13.0001C23.25 14.9874 20.8455 16.6667 18 16.6667C15.1545 16.6667 12.75 14.9874 12.75 13.0001C12.75 11.0127 15.1545 9.33341 18 9.33341Z"
-                fill="#F5EFE7" />
-              <path
-                d="M0.5 22.1667C0.5 24.1834 2.075 25.8334 4 25.8334H32C33.925 25.8334 35.5 24.1834 35.5 22.1667V3.83341C35.5 1.81675 33.925 0.166748 32 0.166748H4C2.075 0.166748 0.5 1.81675 0.5 3.83341V22.1667ZM32 22.1667H28.8062C29.3347 20.6084 30.5125 19.3746 32 18.8209V22.1667ZM32 3.83341V7.17925C30.5125 6.62558 29.3347 5.39175 28.8062 3.83341H32V3.83341ZM4 3.83341H7.19375C6.66525 5.39175 5.4875 6.62558 4 7.17925V3.83341ZM4 10.9816C7.423 10.251 10.1259 7.41941 10.8233 3.83341H25.1759C25.8733 7.41941 28.5761 10.251 31.9991 10.9816V15.0177C28.5761 15.7482 25.8733 18.5798 25.1759 22.1658H10.8233C10.1259 18.5798 7.423 15.7482 4 15.0177V10.9816ZM4 18.8209C5.4875 19.3746 6.66525 20.6084 7.19375 22.1667H4V18.8209Z"
-                fill="#F5EFE7" />
-            </svg>
-          </span> Sales
-        </a>
       </nav>
+      <div class="sidebar-bottom">
+        <a href="#" class="sidebar-btn logout-sidebar-btn" id="sidebarLogoutBtn">
+          <span class="sidebar-icon">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+          </span> Logout
+        </a>
+      </div>
     </aside>
     <main class="dashboard-main">
       <section id="dashboard-section">
@@ -109,19 +97,26 @@
               <input type="text" id="dashboard-search" class="search-input" placeholder="Search orders...">
             </div>
             <div class="header-icons">
-              <div class="header-icon">
+              <div class="connection-status" id="connectionStatus">
+                <div class="connection-indicator online" id="connectionIndicator"></div>
+                <span class="connection-text" id="connectionText">Online</span>
+              </div>
+              <div class="header-icon notification-icon" id="notificationBtn">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13.73 21a2 2 0 0 1-3.46 0">
+                  </path>
+                </svg>
+                <span class="notification-badge">3</span>
+              </div>
+              <div class="header-icon settings-icon" id="settingsBtn">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                   </path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-              </div>
-              <div class="header-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"></path>
                 </svg>
               </div>
             </div>
@@ -174,18 +169,6 @@
               </div>
             </div>
             <div id="dashboard-orders-table"></div>
-            <div class="supply-pagination">
-              <div class="supply-pagination-info">
-                < Previous</div>
-                  <div class="supply-pagination-controls">
-                    <div class="supply-pagination-btn">1</div>
-                    <div class="supply-pagination-btn active">2</div>
-                    <div class="supply-pagination-btn">3</div>
-                    <div class="supply-pagination-btn">4</div>
-                  </div>
-                  <div class="supply-pagination-info">Next ></div>
-              </div>
-            </div>
           </div>
 
           <div class="dashboard-orders-row" style="display: none;">
@@ -209,19 +192,26 @@
               <input type="text" id="orders-search" class="search-input" placeholder="Search orders...">
             </div>
             <div class="header-icons">
-              <div class="header-icon">
+              <div class="connection-status" id="connectionStatus">
+                <div class="connection-indicator online" id="connectionIndicator"></div>
+                <span class="connection-text" id="connectionText">Online</span>
+              </div>
+              <div class="header-icon notification-icon" id="notificationBtn">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13.73 21a2 2 0 0 1-3.46 0">
+                  </path>
+                </svg>
+                <span class="notification-badge">3</span>
+              </div>
+              <div class="header-icon settings-icon" id="settingsBtn">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                   </path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-              </div>
-              <div class="header-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"></path>
                 </svg>
               </div>
             </div>
@@ -246,18 +236,6 @@
               <button id="addOrderBtnOrders" class="add-btn">+</button>
             </div>
             <div id="orders-list"></div>
-            <div class="supply-pagination">
-              <div class="supply-pagination-info">
-                < Previous</div>
-                  <div class="supply-pagination-controls">
-                    <div class="supply-pagination-btn">1</div>
-                    <div class="supply-pagination-btn active">2</div>
-                    <div class="supply-pagination-btn">3</div>
-                    <div class="supply-pagination-btn">4</div>
-                  </div>
-                  <div class="supply-pagination-info">Next ></div>
-              </div>
-            </div>
           </div>
       </section>
       <section id="customers-section" style="display:none;">
@@ -274,19 +252,26 @@
               <input type="text" id="customers-search" class="search-input" placeholder="Search customers...">
             </div>
             <div class="header-icons">
-              <div class="header-icon">
+              <div class="connection-status" id="connectionStatus">
+                <div class="connection-indicator online" id="connectionIndicator"></div>
+                <span class="connection-text" id="connectionText">Online</span>
+              </div>
+              <div class="header-icon notification-icon" id="notificationBtn">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13.73 21a2 2 0 0 1-3.46 0">
+                  </path>
+                </svg>
+                <span class="notification-badge">3</span>
+              </div>
+              <div class="header-icon settings-icon" id="settingsBtn">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                   </path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-              </div>
-              <div class="header-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"></path>
                 </svg>
               </div>
             </div>
@@ -325,19 +310,26 @@
               <input type="text" id="supplies-search" class="search-input" placeholder="Search supplies...">
             </div>
             <div class="header-icons">
-              <div class="header-icon">
+              <div class="connection-status" id="connectionStatus">
+                <div class="connection-indicator online" id="connectionIndicator"></div>
+                <span class="connection-text" id="connectionText">Online</span>
+              </div>
+              <div class="header-icon notification-icon" id="notificationBtn">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13.73 21a2 2 0 0 1-3.46 0">
+                  </path>
+                </svg>
+                <span class="notification-badge">3</span>
+              </div>
+              <div class="header-icon settings-icon" id="settingsBtn">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                   </path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-              </div>
-              <div class="header-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"></path>
                 </svg>
               </div>
             </div>
@@ -362,13 +354,6 @@
             <div id="supplies-list"></div>
           </div>
       </section>
-      <section id="accounts-section" style="display:none;">
-        <div class="dashboard-orders-row" id="accounts-table-container"></div>
-      </section>
-      <section id="sales-section" style="display:none;">
-        <div class="dashboard-orders-row" id="sales-table-container"
-          style="width:100%;height:80vh;display:flex;justify-content:center;align-items:center;"></div>
-      </section>
       <section id="staff-section" style="display:none;">
         <div class="section-header">
           <div class="header-left">
@@ -383,19 +368,26 @@
               <input type="text" id="staff-search" class="search-input" placeholder="Search staff...">
             </div>
             <div class="header-icons">
-              <div class="header-icon">
+              <div class="connection-status" id="connectionStatus">
+                <div class="connection-indicator online" id="connectionIndicator"></div>
+                <span class="connection-text" id="connectionText">Online</span>
+              </div>
+              <div class="header-icon notification-icon" id="notificationBtn">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m13.73 21a2 2 0 0 1-3.46 0">
+                  </path>
+                </svg>
+                <span class="notification-badge">3</span>
+              </div>
+              <div class="header-icon settings-icon" id="settingsBtn">
                 <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
                   </path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-              </div>
-              <div class="header-icon">
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"></path>
                 </svg>
               </div>
             </div>
@@ -417,18 +409,6 @@
               <button id="addStaffBtn" class="add-btn">+</button>
             </div>
             <div id="staff-list"></div>
-            <div class="supply-pagination">
-              <div class="supply-pagination-info">
-                < Previous</div>
-                  <div class="supply-pagination-controls">
-                    <div class="supply-pagination-btn active">1</div>
-                    <div class="supply-pagination-btn">2</div>
-                    <div class="supply-pagination-btn">3</div>
-                    <div class="supply-pagination-btn">4</div>
-                  </div>
-                  <div class="supply-pagination-info">Next ></div>
-              </div>
-            </div>
           </div>
       </section>
       <div id="modalOverlay" class="modal-overlay hidden">
@@ -549,6 +529,151 @@
         </div>
       </div>
 
+      <!-- Settings Modal -->
+      <div id="settingsModalOverlay" class="modal-overlay hidden">
+        <div class="modal" style="position:relative; max-width: 600px;">
+          <button type="button" id="settingsModalClose"
+            style="position:absolute;top:15px;right:20px;background:none;border:none;color:#666;font-size:1.5rem;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s ease;"
+            onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='none'">×</button>
+          <h2>Settings</h2>
+          <form class="modal-form">
+            <div class="settings-tabs">
+              <button type="button" class="settings-tab active" data-tab="profile">Profile</button>
+              <button type="button" class="settings-tab" data-tab="security">Security</button>
+              <button type="button" class="settings-tab" data-tab="preferences">Preferences</button>
+            </div>
+
+            <!-- Profile Tab -->
+            <div class="settings-tab-content active" id="profile-tab">
+              <div class="profile-picture-section">
+                <div class="current-avatar" id="currentAvatar">CL</div>
+                <div class="profile-upload">
+                  <input type="file" id="profilePicture" accept="image/*" style="display: none;" onchange="console.log('File input changed!', event); if(window.laundryApp) window.laundryApp.handleProfilePictureUpload(event); else alert('laundryApp not found!');">
+                  <button type="button" id="uploadProfileBtn" class="upload-btn" onclick="console.log('Upload button clicked!'); var input = document.getElementById('profilePicture'); console.log('Input element:', input); if(input) input.click(); else alert('Input not found!');">Change Picture</button>
+                  <button type="button" id="removeProfileBtn" class="remove-btn" onclick="console.log('Remove button clicked!'); if(window.laundryApp) window.laundryApp.removeProfilePicture(); else alert('laundryApp not found!');">Remove</button>
+                </div>
+              </div>
+
+              <label for="settingsName">Display Name</label>
+              <input type="text" id="settingsName" name="settingsName" required />
+
+              <label for="settingsEmail">Email</label>
+              <input type="email" id="settingsEmail" name="settingsEmail" readonly style="background: #f5f5f5;" />
+
+              <label for="settingsRole">Role</label>
+              <input type="text" id="settingsRole" name="settingsRole" readonly style="background: #f5f5f5;" />
+            </div>
+
+            <!-- Security Tab -->
+            <div class="settings-tab-content" id="security-tab">
+              <label for="currentPassword">Current Password</label>
+              <input type="password" id="currentPassword" name="currentPassword" />
+
+              <label for="newPassword">New Password</label>
+              <input type="password" id="newPassword" name="newPassword" />
+
+              <label for="confirmPassword">Confirm New Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" />
+
+              <div class="password-requirements">
+                <small>Password must be at least 6 characters long</small>
+              </div>
+            </div>
+
+            <!-- Preferences Tab -->
+            <div class="settings-tab-content" id="preferences-tab">
+              <label for="settingsTheme">Theme</label>
+              <select id="settingsTheme" name="settingsTheme">
+                <option value="default">Default</option>
+                <option value="dark">Dark Mode</option>
+                <option value="light">Light Mode</option>
+              </select>
+
+              <label for="settingsNotifications">Notifications</label>
+              <select id="settingsNotifications" name="settingsNotifications">
+                <option value="all">All Notifications</option>
+                <option value="important">Important Only</option>
+                <option value="none">None</option>
+              </select>
+
+              <label for="autoLogout">Auto Logout (minutes)</label>
+              <select id="autoLogout" name="autoLogout">
+                <option value="0">Never</option>
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="120">2 hours</option>
+              </select>
+
+
+            </div>
+
+            <button type="submit" class="modal-add">Save Settings</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Image Crop Modal -->
+      <div id="cropModalOverlay" class="modal-overlay hidden">
+        <div class="modal" style="position:relative; max-width: 600px;">
+          <button type="button" id="cropModalClose"
+            style="position:absolute;top:15px;right:20px;background:none;border:none;color:#666;font-size:1.5rem;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s ease;"
+            onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='none'">×</button>
+          <h2>Crop Profile Picture</h2>
+          <div class="crop-container">
+            <div class="crop-area">
+              <img id="cropImage" style="max-width: 100%; display: none;">
+              <div class="crop-overlay" id="cropOverlay">
+                <div class="crop-selection" id="cropSelection">
+                  <div class="crop-handle top-left"></div>
+                  <div class="crop-handle top-right"></div>
+                  <div class="crop-handle bottom-left"></div>
+                  <div class="crop-handle bottom-right"></div>
+                </div>
+              </div>
+            </div>
+            <div class="crop-preview">
+              <h4>Preview</h4>
+              <div class="preview-circle">
+                <canvas id="previewCanvas" width="100" height="100"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="crop-controls">
+            <button type="button" id="cropCancelBtn" class="crop-btn cancel">Cancel</button>
+            <button type="button" id="cropApplyBtn" class="crop-btn apply">Apply</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Modal -->
+      <div id="notificationsModalOverlay" class="modal-overlay hidden">
+        <div class="modal" style="position:relative;">
+          <button type="button" id="notificationsModalClose"
+            style="position:absolute;top:15px;right:20px;background:none;border:none;color:#666;font-size:1.5rem;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s ease;"
+            onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='none'">×</button>
+          <div class="notifications-header">
+            <h2>Notifications</h2>
+            <div class="notifications-actions">
+              <button id="markAllReadBtn" class="action-btn">Mark All Read</button>
+              <button id="clearAllBtn" class="action-btn danger">Clear All</button>
+            </div>
+          </div>
+          <div class="notifications-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="unread">Unread</button>
+            <button class="filter-btn" data-filter="orders">Orders</button>
+            <button class="filter-btn" data-filter="alerts">Alerts</button>
+          </div>
+          <div class="notifications-list" id="notificationsList">
+            <!-- Notifications will be dynamically loaded here -->
+          </div>
+          <div class="notifications-footer">
+            <button class="modal-add" id="closeNotificationsBtn">Close</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Staff Modal -->
       <div id="staffModalOverlay" class="modal-overlay hidden">
         <div class="modal" style="position:relative;">
@@ -556,7 +681,7 @@
             style="position:absolute;top:15px;right:20px;background:none;border:none;color:#666;font-size:1.5rem;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s ease;"
             onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='none'">×</button>
           <h2>Add Staff</h2>
-          <form class="modal-form">
+          <form class="modal-form" id="staffForm">
             <div class="modal-form-single">
               <label for="staffName">Name</label>
               <input type="text" id="staffName" name="staffName" required />
@@ -574,21 +699,77 @@
           </form>
         </div>
       </div>
+
+      <!-- Edit Order Modal -->
+      <div id="editOrderModalOverlay" class="modal-overlay hidden">
+        <div class="modal" style="position:relative;">
+          <button type="button" id="editOrderModalClose"
+            style="position:absolute;top:15px;right:20px;background:none;border:none;color:#666;font-size:1.5rem;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s ease;"
+            onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='none'">×</button>
+          <h2>Edit Order</h2>
+          <form class="modal-form" id="editOrderForm">
+            <div class="modal-form-single">
+              <label for="editOrderId">Order ID</label>
+              <input type="text" id="editOrderId" name="editOrderId" readonly style="background: #f5f5f5;" />
+
+              <label for="editCustomerName">Customer Name</label>
+              <input type="text" id="editCustomerName" name="editCustomerName" readonly style="background: #f5f5f5;" />
+
+              <label for="editCustomerNumber">Customer Number</label>
+              <input type="tel" id="editCustomerNumber" name="editCustomerNumber" readonly
+                style="background: #f5f5f5;" />
+
+              <label for="editOrderStatus">Order Status</label>
+              <select id="editOrderStatus" name="editOrderStatus" required>
+                <option value="pending">Pending</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+              </select>
+
+              <label for="editTotalAmount">Total Amount</label>
+              <div class="peso-input-wrapper">
+                <span class="peso-symbol">₱</span>
+                <input type="number" id="editTotalAmount" name="editTotalAmount" class="peso-input" step="0.01" min="0"
+                  readonly style="background: #f5f5f5;" />
+              </div>
+
+              <label for="editAmountPaid">Amount Paid</label>
+              <div class="peso-input-wrapper">
+                <span class="peso-symbol">₱</span>
+                <input type="number" id="editAmountPaid" name="editAmountPaid" class="peso-input" step="0.01" min="0"
+                  required />
+              </div>
+
+              <label for="editBalance">Remaining Balance</label>
+              <div class="peso-input-wrapper">
+                <span class="peso-symbol">₱</span>
+                <input type="number" id="editBalance" name="editBalance" class="peso-input" step="0.01" min="0" readonly
+                  style="background: #f5f5f5;" />
+              </div>
+            </div>
+            <button type="submit" class="modal-add">Update Order</button>
+          </form>
+        </div>
+      </div>
   </div>
   </main>
   </div>
+
+  <!-- Notification Container -->
+  <div id="notification-container" class="notification-container"></div>
+
   <!-- JavaScript Modules -->
-  <script src="js/utils.js?v=2"></script>
-  <script src="js/tempData.js?v=2"></script>
-  <script src="js/dashboard.js?v=5"></script>
-  <script src="js/orders.js?v=4"></script>
-  <script src="js/customers.js?v=2"></script>
-  <script src="js/supplies.js?v=2"></script>
-  <script src="js/staff.js?v=5"></script>
-  <script src="js/accounts.js?v=2"></script>
-  <script src="js/sales.js?v=2"></script>
-  <script src="js/adminPanel.js?v=2"></script>
-  <script src="js/app.js?v=2"></script>
+  <script src="../js/utils.js?v=11"></script>
+  <script src="../js/api-service.js?v=3"></script>
+  <script src="../js/dashboard.js?v=10"></script>
+  <script src="../js/orders.js?v=9"></script>
+  <script src="../js/customers.js?v=4"></script>
+  <script src="../js/supplies.js?v=9"></script>
+  <script src="../js/staff.js?v=9"></script>
+  <script src="../js/accounts.js?v=3"></script>
+  <script src="../js/sales.js?v=3"></script>
+  <script src="../js/adminPanel.js?v=7"></script>
+  <script src="../js/app.js?v=3"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ class CustomersModule {
     this.currentFilter = 'all';
     this.currentPage = 1;
     this.itemsPerPage = 5;
+    this.customers = null; // Will be loaded from API
     this.init();
   }
 
@@ -47,19 +48,29 @@ class CustomersModule {
     });
   }
 
-  render() {
+  async loadCustomers() {
+    // Use unified data system
+    await window.AppData.init();
+    this.customers = window.AppData.customers || [];
+    console.log('Loaded customers from unified data system:', this.customers.length);
+  }
+
+  async render() {
     if (!this.customersList) return;
+
+    // Always load fresh data
+    await this.loadCustomers();
 
     this.customersList.innerHTML = '';
 
     // Filter customers based on current filter
-    let filteredCustomers = window.AppData.customers;
+    let filteredCustomers = this.customers || [];
     
-    console.log('All customers:', window.AppData.customers);
+    console.log('All customers:', this.customers);
     console.log('Current filter:', this.currentFilter);
     
     if (this.currentFilter !== 'all') {
-      filteredCustomers = window.AppData.customers.filter(customer => 
+      filteredCustomers = this.customers.filter(customer => 
         customer.status === this.currentFilter
       );
     }
@@ -98,10 +109,16 @@ class CustomersModule {
       const status = customer.status || 'active'; // Default to active if undefined
       const statusClass = status === 'active' ? 'active' : 'pending';
       const statusDisplay = status.charAt(0).toUpperCase() + status.slice(1); // Capitalize first letter
+      const daysInfo = customer.daysSinceLastOrder !== undefined ? 
+        `<div style="font-size: 11px; color: #666; margin-top: 2px;">${customer.daysSinceLastOrder} days ago</div>` : '';
+      
       row.innerHTML = `
-        <td>${customer.name}</td>
-        <td>${customer.number}</td>
-        <td><span class="status-badge ${statusClass}">${statusDisplay}</span></td>
+        <td>${customer.name || 'Unknown'}</td>
+        <td>${customer.number || customer.phone || 'No number'}</td>
+        <td>
+          <span class="status-badge ${statusClass}">${statusDisplay}</span>
+          ${daysInfo}
+        </td>
       `;
       tbody.appendChild(row);
     });
