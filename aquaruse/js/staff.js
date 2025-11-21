@@ -89,10 +89,12 @@ class StaffModule {
       return;
     }
 
+    // Get button reference and original text before try block
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn?.textContent;
+
     try {
       // Show loading state
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalText = submitBtn?.textContent;
       if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Adding Staff...';
@@ -188,7 +190,6 @@ class StaffModule {
       window.AppUtils.showNotification('Error adding staff: ' + error.message);
     } finally {
       // Reset button state
-      const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.textContent = originalText || 'Add Staff';
@@ -410,6 +411,9 @@ class StaffModule {
       );
 
       window.AppUtils.showNotification(`${staffName} deleted successfully`, 'success');
+
+      // Force cache invalidation to ensure fresh data on next page load
+      window.AppData.isLoaded = false;
 
       // Refresh display
       this.staff = null;

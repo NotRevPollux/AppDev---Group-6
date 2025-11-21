@@ -122,6 +122,26 @@ function handleGet($conn, $action) {
             }
             break;
 
+        case 'search_customers':
+            $query = isset($_GET['query']) ? $conn->real_escape_string($_GET['query']) : '';
+            if ($query) {
+                $sql = "SELECT DISTINCT name, phone_numbers FROM customers WHERE name LIKE '%$query%' ORDER BY name ASC LIMIT 10";
+                $result = $conn->query($sql);
+                $customers = [];
+                if ($result) {
+                    while ($row = $result->fetch_assoc()) {
+                        $customers[] = [
+                            'name' => $row['name'],
+                            'phone' => $row['phone_numbers']
+                        ];
+                    }
+                }
+                echo json_encode(['success' => true, 'data' => $customers]);
+            } else {
+                echo json_encode(['success' => true, 'data' => []]);
+            }
+            break;
+
         case 'health':
             echo json_encode([
                 'success' => true, 
@@ -199,43 +219,6 @@ function handlePost($conn, $action) {
                 echo json_encode(['success' => true, 'message' => 'Order added successfully']);
             } else {
                 throw new Exception('Failed to add order: ' . $conn->error);
-            }
-            break;
-
-        case 'get_customer_by_name':
-            $name = isset($_GET['name']) ? $conn->real_escape_string($_GET['name']) : '';
-            if ($name) {
-                $sql = "SELECT * FROM customers WHERE name LIKE '%$name%' ORDER BY name ASC LIMIT 5";
-                $result = $conn->query($sql);
-                $customers = [];
-                if ($result) {
-                    while ($row = $result->fetch_assoc()) {
-                        $customers[] = $row;
-                    }
-                }
-                echo json_encode(['success' => true, 'data' => $customers]);
-            } else {
-                echo json_encode(['success' => true, 'data' => []]);
-            }
-            break;
-
-        case 'search_customers':
-            $query = isset($_GET['query']) ? $conn->real_escape_string($_GET['query']) : '';
-            if ($query) {
-                $sql = "SELECT DISTINCT name, phone_numbers FROM customers WHERE name LIKE '%$query%' ORDER BY name ASC LIMIT 10";
-                $result = $conn->query($sql);
-                $customers = [];
-                if ($result) {
-                    while ($row = $result->fetch_assoc()) {
-                        $customers[] = [
-                            'name' => $row['name'],
-                            'phone' => $row['phone_numbers']
-                        ];
-                    }
-                }
-                echo json_encode(['success' => true, 'data' => $customers]);
-            } else {
-                echo json_encode(['success' => true, 'data' => []]);
             }
             break;
 
@@ -500,6 +483,37 @@ function handlePut($conn, $action) {
             }
             break;
 
+        case 'staff':
+            // Update staff member
+            $staff = [
+                'name' => $conn->real_escape_string($input['name']),
+                'email' => $conn->real_escape_string($input['email']),
+                'phone' => $conn->real_escape_string($input['phone']),
+                'password' => $conn->real_escape_string($input['password'])
+            ];
+
+            // Find staff by id or email
+            if (isset($input['id'])) {
+                $identifier = "id=" . intval($input['id']);
+            } else {
+                $old_email = $conn->real_escape_string($input['email']);
+                $identifier = "email='$old_email'";
+            }
+
+            $sql = "UPDATE staff SET 
+                    name='{$staff['name']}', 
+                    email='{$staff['email']}', 
+                    phone='{$staff['phone']}', 
+                    password='{$staff['password']}'
+                    WHERE $identifier";
+
+            if ($conn->query($sql)) {
+                echo json_encode(['success' => true, 'message' => 'Staff updated successfully']);
+            } else {
+                throw new Exception('Failed to update staff: ' . $conn->error);
+            }
+            break;
+
         default:
             http_response_code(400);
             echo json_encode(['error' => 'Invalid action']);
@@ -529,6 +543,27 @@ function handleDelete($conn, $action) {
                 echo json_encode(['success' => true, 'message' => 'Account deleted successfully']);
             } else {
                 throw new Exception('Failed to delete account: ' . $conn->error);
+            }
+            break;
+
+        case 'staff':
+            // Delete staff member by id or email
+            if (isset($input['id'])) {
+                $id = intval($input['id']);
+                $sql = "DELETE FROM staff WHERE id=$id";
+            } else if (isset($input['email'])) {
+                $email = $conn->real_escape_string($input['email']);
+                $sql = "DELETE FROM staff WHERE email='$email'";
+            } else {
+                http_response_code(400);
+                echo json_encode(['error' => 'Staff id or email required']);
+                break;
+            }
+            
+            if ($conn->query($sql)) {
+                echo json_encode(['success' => true, 'message' => 'Staff deleted successfully']);
+            } else {
+                throw new Exception('Failed to delete staff: ' . $conn->error);
             }
             break;
 
