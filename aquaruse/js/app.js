@@ -46,7 +46,7 @@ class LaundryApp {
       window.apiService = {
         async get(endpoint) {
           try {
-            const response = await fetch(`php/api.php?action=${endpoint}`);
+            const response = await fetch(`../php/api.php?action=${endpoint}`);
             return await response.json();
           } catch (error) {
             console.warn(`API GET ${endpoint} failed:`, error.message);
@@ -56,7 +56,7 @@ class LaundryApp {
 
         async post(endpoint, data) {
           try {
-            const response = await fetch(`php/api.php?action=${endpoint}`, {
+            const response = await fetch(`../php/api.php?action=${endpoint}`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data)
@@ -70,7 +70,7 @@ class LaundryApp {
 
         async put(endpoint, data) {
           try {
-            const response = await fetch(`php/api.php?action=${endpoint}`, {
+            const response = await fetch(`../php/api.php?action=${endpoint}`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(data)
