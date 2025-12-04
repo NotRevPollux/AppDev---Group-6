@@ -1,7 +1,7 @@
 // API Service for backend integration
 class ApiService {
   constructor() {
-    this.baseUrl = 'php/api.php';
+    this.baseUrl = '../php/api.php';
     this.isOnline = navigator.onLine;
     
     // Listen for online/offline events

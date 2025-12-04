@@ -248,7 +248,7 @@ class AdminPanel {
         
         // Test clear data endpoint (dry run)
         console.log('Testing clear data endpoint...');
-        const clearTest = await fetch('php/api.php?action=clear_all_data', {
+        const clearTest = await fetch('../php/api.php?action=clear_all_data', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ admin_email: 'admin@aquaruse' })
@@ -378,14 +378,15 @@ class AdminPanel {
     window.AppData.orders = [];
     window.AppData.customers = [];
     window.AppData.staff = [];
+    // Don't reset supplies to 0 - keep them at default values
     window.AppData.supplies = {
-      detergent: 0,
-      softener: 0,
-      bleach: 0,
-      fragrance: 0,
-      stain_remover: 0,
-      steam_water: 0,
-      garment_bag: 0
+      detergent: 15,
+      softener: 15,
+      bleach: 15,
+      fragrance: 15,
+      stain_remover: 15,
+      steam_water: 15,
+      garment_bag: 15
     };
     window.AppData.orderIdCounter = 1;
     window.AppData.isLoaded = false; // Force reload on next access
