@@ -378,7 +378,20 @@ class AdminPanel {
     window.AppData.orders = [];
     window.AppData.customers = [];
     window.AppData.staff = [];
+<<<<<<< HEAD
     window.AppData.supplies = {}; // Empty - will be loaded from database
+=======
+    // Don't reset supplies to 0 - keep them at default values
+    window.AppData.supplies = {
+      detergent: 15,
+      softener: 15,
+      bleach: 15,
+      fragrance: 15,
+      stain_remover: 15,
+      steam_water: 15,
+      garment_bag: 15
+    };
+>>>>>>> 49b70d8f16c7f74f7ca852b15710f22adfba33b5
     window.AppData.orderIdCounter = 1;
     window.AppData.isLoaded = false; // Force reload on next access
     window.AppData.saveToLocalStorage();

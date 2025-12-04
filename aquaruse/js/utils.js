@@ -578,6 +578,7 @@ window.AppData = {
         
         console.log('Initializing AppData from database...');
         
+<<<<<<< HEAD
         // Always load from database (API)
         try {
             await this.loadFromAPI();
@@ -593,6 +594,23 @@ window.AppData = {
             this.customers = [];
             this.staff = [];
             this.supplies = {};
+=======
+        if (dataWasCleared) {
+            console.log('Data was cleared, starting with default supplies');
+            this.orders = [];
+            this.customers = [];
+            this.staff = [];
+            // Start with default supply values, not 0
+            this.supplies = {
+                detergent: 15,
+                softener: 15,
+                bleach: 15,
+                fragrance: 15,
+                stain_remover: 15,
+                steam_water: 15,
+                garment_bag: 15
+            };
+>>>>>>> 49b70d8f16c7f74f7ca852b15710f22adfba33b5
             this.orderIdCounter = 1;
         }
         
@@ -654,6 +672,7 @@ window.AppData = {
             // Process customers - but generate from orders instead
             // We'll generate customers from orders, not load from API
             
+<<<<<<< HEAD
             // Process supplies - ONLY from database
             if (suppliesResult.status === 'fulfilled' && suppliesResult.value && suppliesResult.value.success) {
                 const apiSupplies = suppliesResult.value.data;
@@ -670,11 +689,50 @@ window.AppData = {
             }
             
             // Ensure all required supplies exist with default value of 0
+=======
+            // Process supplies - ALWAYS use localStorage, NEVER API
+            // Supplies are managed locally and should not be overwritten by API
+            const localData = localStorage.getItem('laundryAppData');
+            let suppliesLoaded = false;
+            
+            if (localData) {
+                try {
+                    const parsed = JSON.parse(localData);
+                    if (parsed.supplies) {
+                        this.supplies = parsed.supplies;
+                        suppliesLoaded = true;
+                        console.log('Loaded supplies from localStorage:', Object.keys(this.supplies).length);
+                    }
+                } catch (e) {
+                    console.warn('Error parsing localStorage for supplies:', e);
+                }
+            }
+            
+            // If no localStorage supplies, initialize with default values (not from API)
+            if (!suppliesLoaded) {
+                this.supplies = {
+                    detergent: 15,
+                    softener: 15,
+                    bleach: 15,
+                    fragrance: 15,
+                    stain_remover: 15,
+                    steam_water: 15,
+                    garment_bag: 15
+                };
+                console.log('Initialized supplies with default values');
+            }
+            
+            // Ensure all required supplies exist
+>>>>>>> 49b70d8f16c7f74f7ca852b15710f22adfba33b5
             const requiredSupplies = ['detergent', 'softener', 'bleach', 'fragrance', 'stain_remover', 'steam_water', 'garment_bag'];
             
             for (const key of requiredSupplies) {
                 if (!(key in this.supplies)) {
+<<<<<<< HEAD
                     this.supplies[key] = 0;
+=======
+                    this.supplies[key] = 15; // Default value for missing supplies
+>>>>>>> 49b70d8f16c7f74f7ca852b15710f22adfba33b5
                 }
             }
 
